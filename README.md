@@ -77,6 +77,12 @@ Options:
 
 ## SVG to PNG convertor (what you came here for): `svg_to_png.py`
 
+Just run it and follow the instructions:
+
+```
+$ python3 svg_to_png.py
+```
+
 # Try it
 
 Download `https://github.com/aayla-secura/simple_CORS_https_server/blob/master/simple.py` and put it in the current directory.
