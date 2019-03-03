@@ -4,7 +4,8 @@ Convert svg to png using your browser's JavaScript. Can set the size,
 background and fill color using URL parameters.
 
 Requires python3 and `simple.py` from [this other project of
-mine](https://github.com/aayla-secura/simple_CORS_https_server).
+mine](https://github.com/aayla-secura/simple_CORS_https_server), though you can
+just use the [static HTML page]() and edit to point to your image.
 
 Works in Chrome, does not work in Firefox at the moment. Not tested in any
 other browsers.
@@ -84,7 +85,7 @@ Options:
 
 Just run it and follow the instructions:
 
-```
+```console
 $ python3 svg_to_png.py
 ```
 
@@ -92,19 +93,19 @@ $ python3 svg_to_png.py
 
 Download `https://github.com/aayla-secura/simple_CORS_https_server/blob/master/simple.py` and put it in the current directory.
 
-```
+```console
 $ ./fetch_outline.sh -i demo.png -o out/demo.html
 $ ./fetch_outline.sh -i demo.png -a -o out/demo.txt
 $ ./text_to_outline.pl -i out/demo.txt -t demo.txt -o out/txtimage_txt
 $ ./text_to_outline.pl -i out/demo.html -t demo.txt -o out/txtimage_html
 ```
 
-```
+```console
 $ xxd -r -p out/txtimage_txt.txt
 $ xxd -r -p out/txtimage_html.txt
 ```
 
-```
+```console
 $ python3 svg_to_png.py
 ```
 
@@ -112,6 +113,74 @@ The go to:
 
 ```
 http://127.0.0.1:58080/convert/out?fillcol=0x550000&bgcol=cyan
+```
+
+# Static source
+
+No python? No problem. It just globs the directory for svg images and outputs
+HTML like the one below. Edit the `data` attribute of the object, or add more
+`<div class="svg">` sections.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style type="text/css" media="screen">
+      div.svg { cursor: pointer; border: grey solid 1px; width: 100px; float: left }
+      object { pointer-events: none; width: 100%; }
+      a { text-decoration: none; }
+    </style>
+    <script charset="utf-8">
+      function convert() {
+        var obj = this.querySelector('object');
+        var svg = new XMLSerializer().serializeToString(
+          obj.contentDocument.querySelector('svg'));
+        var img = document.createElement('img');
+        img.src = 'data:image/svg+xml;base64,' + btoa(svg);
+        var link = this.querySelector('a');
+        img.onload = function () {
+          var cvs = document.createElement('canvas');
+          cvs.width = 2000;
+          cvs.height = 2000*img.height/img.width;
+          cvs.getContext('2d').drawImage(img, 0, 0);
+          link.href = cvs.toDataURL();
+          link.onclick = function(e) {e.stopPropagation();};
+          link.click();
+          delete img;
+          delete cvs;
+          link.href = '#';
+        }
+      }
+      function colorize() {
+        var svg = this.contentDocument.querySelector('svg');
+        var xmlns = "http://www.w3.org/2000/svg";
+        var st = document.createElementNS(xmlns, 'style');
+        st.textContent = '';
+        if ('') {
+          st.textContent += '* { background-color:  !important; }';
+        }
+        if ('') {
+          st.textContent += '* { fill:  !important; }';
+        }
+        svg.appendChild(st);
+      }
+    </script>
+  </head>
+  <body>
+    <p>Click on an image do download it as png. Use the
+    width={num in px} URL parameter to adjust the size of the png.
+    Use the bgcol={name or 0x??????} and fillcol={name or 0x??????}
+    parameters to change the colors (i.e. replace '#' with '0x' if
+    using hex colors).</p>
+    
+    <div class="svg" id="demo" onclick="convert.call(this)">
+      <a href="#" download="demo.png"></a>
+      <object data="/./demo.svg" onload="colorize.call(this)"></object>
+    </div>
+            
+  </body>
+</html>
 ```
 
 # CREDIT
