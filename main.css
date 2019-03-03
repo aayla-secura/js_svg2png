@@ -1,0 +1,9 @@
+div.svg {
+  cursor: pointer;
+  border: grey solid 1px;
+  width: 100px; float: left;
+}
+object {
+  pointer-events: none;
+  width: 100%;
+}

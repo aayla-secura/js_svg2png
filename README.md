@@ -126,46 +126,8 @@ HTML like the one below. Edit the `data` attribute of the object, or add more
 <html>
   <head>
     <meta charset="UTF-8" />
-    <style type="text/css" media="screen">
-      div.svg { cursor: pointer; border: grey solid 1px; width: 100px; float: left }
-      object { pointer-events: none; width: 100%; }
-      a { text-decoration: none; }
-    </style>
-    <script charset="utf-8">
-      function convert() {
-        var obj = this.querySelector('object');
-        var svg = new XMLSerializer().serializeToString(
-          obj.contentDocument.querySelector('svg'));
-        var img = document.createElement('img');
-        img.src = 'data:image/svg+xml;base64,' + btoa(svg);
-        var link = this.querySelector('a');
-        img.onload = function () {
-          var cvs = document.createElement('canvas');
-          cvs.width = 2000;
-          cvs.height = 2000*img.height/img.width;
-          cvs.getContext('2d').drawImage(img, 0, 0);
-          link.href = cvs.toDataURL();
-          link.onclick = function(e) {e.stopPropagation();};
-          link.click();
-          delete img;
-          delete cvs;
-          link.href = '#';
-        }
-      }
-      function colorize() {
-        var svg = this.contentDocument.querySelector('svg');
-        var xmlns = "http://www.w3.org/2000/svg";
-        var st = document.createElementNS(xmlns, 'style');
-        st.textContent = '';
-        if ('') {
-          st.textContent += '* { background-color:  !important; }';
-        }
-        if ('') {
-          st.textContent += '* { fill:  !important; }';
-        }
-        svg.appendChild(st);
-      }
-    </script>
+    <link rel="stylesheet" href="/main.css" type="text/css" charset="utf-8">
+    <script src="/main.js" charset="utf-8"></script>
   </head>
   <body>
     <p>Click on an image do download it as png. Use the
