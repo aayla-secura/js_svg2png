@@ -1,8 +1,13 @@
 # In-browser svg to png convertor
 
-Requires `simple.py` from [this other project of mine](https://github.com/aayla-secura/simple_CORS_https_server).
+Convert svg to png using your browser's JavaScript. Can set the size,
+background and fill color using URL parameters.
 
-Works in Chrome, does not work in Firefox at the moment. Not tested in any other browsers.
+Requires `simple.py` from [this other project of
+mine](https://github.com/aayla-secura/simple_CORS_https_server).
+
+Works in Chrome, does not work in Firefox at the moment. Not tested in any
+other browsers.
 
 Also included are scripts to convert an image (png, jpg) to an ASCII text using
 the excellent online convertor at https://www.text-image.com/convert/pic2
