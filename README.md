@@ -5,7 +5,7 @@ background and fill color using URL parameters.
 
 Requires python3 and `simple.py` from [this other project of
 mine](https://github.com/aayla-secura/simple_CORS_https_server), though you can
-just use the [static HTML page]() and edit to point to your image.
+just use the [static HTML page](#static-source) and edit to point to your image.
 
 Works in Chrome, does not work in Firefox at the moment. Not tested in any
 other browsers.
