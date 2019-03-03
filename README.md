@@ -3,7 +3,7 @@
 Convert svg to png using your browser's JavaScript. Can set the size,
 background and fill color using URL parameters.
 
-Requires `simple.py` from [this other project of
+Requires python3 and `simple.py` from [this other project of
 mine](https://github.com/aayla-secura/simple_CORS_https_server).
 
 Works in Chrome, does not work in Firefox at the moment. Not tested in any
